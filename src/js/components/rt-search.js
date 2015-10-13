@@ -1,28 +1,27 @@
 'use strict';
 
 import React from 'react';
+import Reflux from 'reflux';
+import MovieStore from '../stores/movie-store';
+import SearchResults from './search-results';
+import Actions from '../actions';
 
 const RTSearch = React.createClass({
+
     getInitialState: function() {
-        return {searchString: ''};
+        return {
+            searchString: ''
+        };
     },
     render: function() {
-        var searchString = this.state.searchString.trim().toLowerCase(),
-            libs = searchString.length === 0 ? [] : libraries.filter(function(el) {
-                return el.name.toLowerCase().match(searchString);
-            }),
-            found = libs.map(function(el) {
-                return (
-                    <li key={el.name}>
-                        {el.name}
-                    </li>
-                    )
-            }),
-            styledFound =  searchString.length === 0 ? '' : <div className="panel panel-default">
-                <ul className="list-unstyled">
-                    {found}
-                </ul>
-                </div>
+        console.log('rt-results render');
+        var searchString = this.state.searchString.trim().toLowerCase();
+
+        if (this.state.searchString.length >= 3) {
+            Actions.getMovies(this.state.searchString);
+        } else {
+            Actions.resetMovies();
+        }
 
         return (
             <div className="panel panel-default">
@@ -33,9 +32,9 @@ const RTSearch = React.createClass({
                     <div className="row">
                         <div className="col-sm-6">
                             <input type="text" 
-                            onChange={this.onChange}
+                            onChange={this.onChangeInput}
                             placeholder="Type here" />
-                            {styledFound}
+                            <SearchResults></SearchResults>
                         </div>
                     </div>
                 </div>
@@ -43,9 +42,8 @@ const RTSearch = React.createClass({
         );
     },
 
-    onChange: function(event) {
+    onChangeInput: function(event) {
         this.setState({ searchString: event.target.value });
-        //console.log(this.state.searchString);
     }
 });
 

@@ -25,7 +25,9 @@
     "webpack": "^1.12.2"
   },
   "dependencies": {
+    "axios": "^0.7.0",
     "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react-dom": "^0.14.0",
+    "reflux": "^0.3.0"
   }
 }

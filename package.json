@@ -1,5 +1,5 @@
 {
-  "name": "webpack-es6-react",
+  "name": "react-world",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -25,7 +25,6 @@
     "webpack": "^1.12.2"
   },
   "dependencies": {
-    "bootstrap": "^3.3.5",
     "react": "^0.14.0",
     "react-dom": "^0.14.0"
   }

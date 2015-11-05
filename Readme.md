@@ -1,4 +1,5 @@
 ### Exploring React
+UPDATE 5/11/2015: new build process. BrowserSync starts the dev workflow. Webpack is for building and it's a separate process.
 
 #### Real-time search
 http://docs.themoviedb.apiary.io/#

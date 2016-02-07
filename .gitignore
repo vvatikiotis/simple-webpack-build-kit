@@ -1,5 +1,12 @@
 node_modules
-
 build
 
 npm-debug.log
+
+// sublime specific
+*.sublime*
+
+// visual code specific
+typings
+jsconfig.json
+

@@ -1,23 +1,11 @@
+// NOTE: These options are overriden by the babel-loader configuration
+// for webpack, which can be found in ~/build/webpack-environments/_base
+// and ~/build/webpack-environments/production.
+//
+// Why? The react-transform-hmr plugin depends on HMR (and throws if
+// module.hot is disbled, so keeping it and related plugins contained
+// within webpack helps prevent unexpected errors.
 {
-  "stage": 0,
-  "env": {
-    // only enable it when process.env.NODE_ENV is 'development' or undefined
-    "development": {
-      "plugins": ["react-transform"],
-      "extra": {
-        // must be defined and be an object
-        "react-transform": {
-          "transforms": [{
-            "transform": "react-transform-hmr",
-            // if you use React Native, pass "react-native" instead:
-            "imports": ["react"],
-            // this is important for Webpack HMR:
-            "locals": ["module"]
-          }]
-          // note: you can put more transforms into array
-          // this is just one of them!
-        }
-      }
-    }
-  }
+  "presets": ["es2015", "react", "stage-0"],
+  "plugins": ["transform-runtime", "add-module-exports", "babel-plugin-transform-decorators-legacy"]
 }

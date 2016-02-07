@@ -1,16 +1,10 @@
-'use strict';
-
 import React from 'react';
-import RTSearch from './components/rt-search';
 
-const App = React.createClass({
-    render: function() {
-        return (
-            <div className="container">
-                <RTSearch></RTSearch>
-            </div>
-        );
-    }
-});
-
-export default App;
+// stateless component
+export default function App(props) {
+  return (
+    <div className="container">
+      <h3>App</h3>
+    </div>
+  );
+}

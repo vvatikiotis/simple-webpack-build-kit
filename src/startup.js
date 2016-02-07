@@ -1,5 +1,3 @@
-'use strict';
-
 import './styles/main.scss';
 
 import React from 'react';

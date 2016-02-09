@@ -5,6 +5,7 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var cssnano = require('cssnano');
 
+// No need to import these
 var globals = {
   'React': 'react',
   'ReactDOM': 'react-dom',
@@ -21,7 +22,7 @@ module.exports = {
   ],
 
   resolve: {
-    // root: 'src',
+    root: path.resolve('./src'),
     extensions: ['', '.js', '.jsx'],
   },
 

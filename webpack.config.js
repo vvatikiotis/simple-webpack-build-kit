@@ -5,14 +5,25 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var cssnano = require('cssnano');
 
+var globals = {
+  'React': 'react',
+  'ReactDOM': 'react-dom',
+  'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch',
+};
+
 module.exports = {
   debug: true,
   devtool: '#source-map',
-  context: path.resolve('./src'),
 
+  context: path.resolve('./src'),
   entry: [
     './main',
   ],
+
+  resolve: {
+    // root: 'src',
+    extensions: ['', '.js', '.jsx'],
+  },
 
   output: {
     path: path.resolve('./src'),
@@ -24,6 +35,7 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
+      // template: path.resolve('./src/index.html'),
       template: './index.html',
       hash: false,
       // favicon: 'static/favicon.ico',
@@ -33,6 +45,7 @@ module.exports = {
         collapseWhitespace: true,
       },
     }),
+    new webpack.ProvidePlugin(globals),
   ],
 
   module: {
@@ -65,7 +78,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
       },

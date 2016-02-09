@@ -1,10 +1,6 @@
-import React from 'react';
+import _debug from 'debug';
+const debug = _debug('app:app');
 
-// stateless component
-export default function App(props) {
-  return (
-    <div className="container">
-      <h3>App</h3>
-    </div>
-  );
+export default function app() {
+  debug('');
 }

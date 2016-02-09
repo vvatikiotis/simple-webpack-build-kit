@@ -1,71 +1,97 @@
+// For instructions about this file refer to
+// webpack and webpack-hot-middleware documentation
 var webpack = require('webpack');
-var	path = require('path');
-var HtmlwebpackPlugin = require('html-webpack-plugin');
+var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var cssnano = require('cssnano');
 
 module.exports = {
-	debug: true,
-	devtool: 'source-map',
-	context: path.resolve('./src'),
-	entry: [
-		// 'webpack/hot/dev-server',
-		'webpack-hot-middleware/client',
-		'./startup',
-	],
-	resolve: {
-		extensions: ['', '.js', '.jsx'],
-	},
-	output: {
-		path: path.resolve('/build'),
-		filename: 'bundle.js',
-	},
-	module: {
-		preLoaders: [{
-			test: /\.js$/,
-			exclude: /(node_modules|build)/,
-			loader: 'eslint',
-		}],
+  debug: true,
+  devtool: '#source-map',
+  context: path.resolve('./src'),
 
-		loaders: [{
-			test: /\.less$/,
-			exclude: /(node_modules|build)/,
-			loaders: [
-				'style-loader',
-				'css-loader',
-				'autoprefixer?browsers=last 2 versions', // maybe 1 line up
-				'less-loader',
-			],
-		}, {
-			test: /\.scss$/,
-			exclude: /(node_modules|build)/,
-			loaders: [
-				'style',
-				'css',
-				'autoprefixer?browsers=last 2 versions',
-				'sass-loader',
-			],
-		}, {
-			test: /\.(svg|woff2|woff|ttf|eot)$/i,
-			loaders: [
-				'file-loader',
-			],
-		}, {
-			test: /\.(png|jpg)$/,
-			loader: 'url-loader?limit=8192',
-		}, {
-			test: /\.(jsx|js)?$/,
-			exclude: /(node_modules|build)/,
-			loader: 'babel-loader',
-		}],
-	},
+  entry: [
+    './main',
+  ],
 
-	plugins: [
-		new webpack.optimize.OccurenceOrderPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin(),
-		new HtmlwebpackPlugin({
-			title: 'React',
-			template: 'tmpl.html',
-			inject: 'body',
-		}),
-	],
+  output: {
+    path: path.resolve('./src'),
+    publicPath: '/',
+    filename: 'bundle.js',
+  },
+
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      hash: false,
+      // favicon: 'static/favicon.ico',
+      filename: 'index.html',
+      inject: 'body',
+      minify: {
+        collapseWhitespace: true,
+      },
+    }),
+  ],
+
+  module: {
+    loaders: [
+      {
+        test: /\.scss$/,
+        exclude: /node_module/,
+        loaders: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.less$/,
+        exclude: /node_module/,
+        loaders: [
+          'style-loader',
+          'less-loader',
+        ],
+      },
+      {
+        test: /\.css$/,
+        exclude: /node_module/,
+        loaders: [
+          'style-loader',
+          'css-loader?sourceMap',
+          'postcss-loader',
+        ],
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+      /* eslint-disable */
+      { test: /\.woff(\?.*)?$/,  loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
+      { test: /\.woff2(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },
+      { test: /\.ttf(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
+      { test: /\.eot(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
+      { test: /\.svg(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml' },
+      { test: /\.(png|jpg)$/,    loader: 'url?limit=8192' }
+      /* eslint-enable */
+    ],
+  },
+
+  postcss: [
+    cssnano({
+      sourcemap: true,
+      autoprefixer: {
+        add: true,
+        remove: true,
+        browsers: ['last 2 versions'],
+      },
+      safe: true,
+      discardComments: {
+        removeAll: true,
+      },
+    }),
+  ],
 };

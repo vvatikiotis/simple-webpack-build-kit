@@ -14,6 +14,10 @@ module.exports = {
     './main',
   ],
 
+  resolve: {
+    root: path.resolve('./src'),
+  },
+
   output: {
     path: path.resolve('./src'),
     publicPath: '/',

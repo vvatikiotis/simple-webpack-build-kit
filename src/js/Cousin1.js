@@ -1,37 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { showChild1 } from 'js/redux';
+import { showCousin1 } from 'js/redux';
 
 import _debug from 'debug';
-const debug = _debug('app:child1');
+const debug = _debug('app:cousin1');
 
 const mapStateToProps = (state) => {
-  debug('child1 stateToProps');
+  debug('cousin1');
   return {
-    child1: state.child1,
+    cousin1: state.cousin1,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  debug('child1 dispatchToProps');
   return {
     onClick: () => {
-      dispatch(showChild1());
+      dispatch(showCousin1());
     },
   };
 };
 
-export const ChildComponent = (props) => {
+export const CousinComponent = (props) => {
   const {
-    child1,
+    cousin1,
     onClick,
   } = props;
   return (
-    <div onClick={onClick}>Child 1</div>
+    <div onClick={onClick}>Cousin 1</div>
   );
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ChildComponent);
+)(CousinComponent);

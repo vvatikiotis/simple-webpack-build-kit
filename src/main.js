@@ -1,4 +1,5 @@
-import 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import _debug from 'debug';
 const debug = _debug('app');
 

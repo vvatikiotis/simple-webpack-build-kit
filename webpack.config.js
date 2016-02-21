@@ -7,8 +7,6 @@ var cssnano = require('cssnano');
 
 // No need to import these
 var globals = {
-  'React': 'react',
-  'ReactDOM': 'react-dom',
   'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch',
 };
 
